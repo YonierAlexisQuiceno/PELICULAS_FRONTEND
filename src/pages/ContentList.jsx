@@ -19,7 +19,7 @@ const ContentList = () => {
             setMediaItems(data);
         } catch (error) {
             console.error('Failed to load media', error);
-            Swal.fire('Error!', 'Failed to load media from the server.', 'error');
+            Swal.fire('Error!', 'No se pudieron cargar los medios del servidor.', 'error');
         } finally {
             setLoading(false);
         }
@@ -28,23 +28,24 @@ const ContentList = () => {
     const handleDelete = async (id) => {
         try {
             const result = await Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmColor: '#1e75ff',
                 cancelColor: '#ef4444',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
             });
 
             if (result.isConfirmed) {
                 await mediaService.delete(id);
                 setMediaItems(mediaItems.filter(item => item._id !== id));
-                Swal.fire('Deleted!', 'The record has been deleted.', 'success');
+                Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
             }
         } catch (error) {
             console.error('Failed to delete media', error);
-            Swal.fire('Error!', 'Failed to delete the record.', 'error');
+            Swal.fire('Error!', 'No se pudo eliminar el registro.', 'error');
         }
     };
 
@@ -52,11 +53,11 @@ const ContentList = () => {
         <div className="container-fluid p-0">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 className="fw-bold mb-1">Manage Media</h2>
-                    <p className="text-muted">List of all movies and series in the platform.</p>
+                    <h2 style={{ color: '#fff', fontWeight: 700, marginBottom: '4px' }}>Gestionar Media</h2>
+                    <p style={{ color: '#9ca3af', margin: 0, fontSize: '0.9rem' }}>Listado de todas las películas y series en la plataforma.</p>
                 </div>
                 <Link to="/admin/medias/new" className="btn btn-primary d-flex align-items-center fw-bold px-4 py-2">
-                    <FaPlus className="me-2" /> New Media
+                    <FaPlus className="me-2" /> Nueva Media
                 </Link>
             </div>
 
@@ -79,7 +80,7 @@ const ContentList = () => {
                                     <th scope="col">TIPO</th>
                                     <th scope="col">GENERO</th>
                                     <th scope="col">DIR/PROD</th>
-                                    <th scope="col" className="text-end pe-4">ACTIONS</th>
+                                    <th scope="col" className="text-end pe-4">ACCIONES</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,7 +120,7 @@ const ContentList = () => {
                                 ) : (
                                     <tr>
                                         <td colSpan="8" className="text-center py-5 text-muted">
-                                            No records found.
+                                            Sin registros.
                                         </td>
                                     </tr>
                                 )}
@@ -127,8 +128,8 @@ const ContentList = () => {
                         </table>
                     </div>
                 )}
-                <div className="card-footer bg-transparent border-top py-3 px-4 d-flex justify-content-between align-items-center">
-                    <span className="text-muted" style={{ fontSize: '0.85rem' }}>Showing {mediaItems.length} results</span>
+                <div style={{ borderTop: '1px solid #2e364f', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: '#9ca3af', fontSize: '0.82rem' }}>Mostrando {mediaItems.length} resultados</span>
                 </div>
             </div>
         </div>

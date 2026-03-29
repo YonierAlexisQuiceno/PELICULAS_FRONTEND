@@ -20,8 +20,8 @@ export const ProductoraList = () => {
 
     return (
         <GenericList 
-            title="Manage Productoras"
-            description="Add, edit, or remove production companies."
+            title="Gestionar Productoras"
+            description="Agrega, edita o elimina productoras del sistema."
             addLink="/admin/productoras/new"
             editLinkPrefix="/admin/productoras/edit"
             service={productoraService}
@@ -51,7 +51,7 @@ export const ProductoraForm = () => {
     return (
         <GenericForm 
             title="Productora"
-            description="Enter the details for the production company."
+            description="Ingresa los datos de la productora."
             backLink="/admin/productoras"
             service={productoraService}
             fields={fields}

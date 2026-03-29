@@ -19,8 +19,8 @@ export const DirectorList = () => {
 
     return (
         <GenericList 
-            title="Manage Directores"
-            description="Add, edit, or remove directors."
+            title="Gestionar Directores"
+            description="Agrega, edita o elimina directores del sistema."
             addLink="/admin/directores/new"
             editLinkPrefix="/admin/directores/edit"
             service={directorService}
@@ -48,7 +48,7 @@ export const DirectorForm = () => {
     return (
         <GenericForm 
             title="Director"
-            description="Enter the details of the director."
+            description="Ingresa los datos del director."
             backLink="/admin/directores"
             service={directorService}
             fields={fields}

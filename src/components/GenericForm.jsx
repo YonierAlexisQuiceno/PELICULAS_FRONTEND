@@ -36,7 +36,7 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
             const data = await service.getById(id);
             setFormData(data);
         } catch (error) {
-            Swal.fire('Error!', 'Could not fetch record.', 'error');
+            Swal.fire('Error!', 'No se pudo obtener el registro.', 'error');
             history.push(backLink);
         } finally {
             setLoading(false);
@@ -54,14 +54,14 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
             setLoading(true);
             if (isEditMode) {
                 await service.update(id, formData);
-                Swal.fire('Updated!', 'The record has been updated.', 'success');
+                Swal.fire('Actualizado!', 'El registro ha sido actualizado.', 'success');
             } else {
                 await service.create(formData);
-                Swal.fire('Created!', 'New record added successfully.', 'success');
+                Swal.fire('Creado!', 'Nuevo registro agregado exitosamente.', 'success');
             }
             history.push(backLink);
         } catch (error) {
-            Swal.fire('Error!', error.response?.data?.message || 'Could not save data.', 'error');
+            Swal.fire('Error!', error.response?.data?.message || 'No se pudieron guardar los datos.', 'error');
         } finally {
             setLoading(false);
         }
@@ -76,13 +76,13 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
             <div className="mb-4 d-flex justify-content-between align-items-center">
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol className="breadcrumb mb-1" style={{ fontSize: '0.85rem' }}>
-                            <li className="breadcrumb-item"><Link to={backLink} className="text-secondary text-decoration-none">{title}s</Link></li>
-                            <li className="breadcrumb-item active text-muted" aria-current="page">{isEditMode ? 'Edit' : 'Add New'}</li>
+                        <ol className="breadcrumb mb-1" style={{ fontSize: '0.82rem' }}>
+                            <li className="breadcrumb-item"><Link to={backLink} style={{ color: '#9ca3af', textDecoration: 'none' }}>{title}s</Link></li>
+                            <li className="breadcrumb-item active" aria-current="page" style={{ color: '#6b7280' }}>{isEditMode ? 'Editar' : 'Nuevo'}</li>
                         </ol>
                     </nav>
-                    <h2 className="fw-bold mb-1">{isEditMode ? `Edit ${title}` : `Add New ${title}`}</h2>
-                    <p className="text-muted">{description}</p>
+                    <h2 style={{ color: '#fff', fontWeight: 700, marginBottom: '4px' }}>{isEditMode ? `Editar ${title}` : `Nuevo ${title}`}</h2>
+                    <p style={{ color: '#9ca3af', margin: 0, fontSize: '0.9rem' }}>{description}</p>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
                                             rows="4" 
                                             value={formData[field.name] || ''} 
                                             onChange={handleChange} 
-                                            placeholder={`Enter ${field.label.toLowerCase()}`}
+                                            placeholder={`Ingrese ${field.label.toLowerCase()}`}
                                             required={field.required}
                                             style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
                                         ></textarea>
@@ -129,7 +129,7 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
                                             name={field.name} 
                                             value={formData[field.name] || ''} 
                                             onChange={handleChange} 
-                                            placeholder={`Enter ${field.label.toLowerCase()}`}
+                                            placeholder={`Ingrese ${field.label.toLowerCase()}`}
                                             required={field.required}
                                             style={{ backgroundColor: 'rgba(255,255,255,0.03)' }} 
                                         />
@@ -140,9 +140,9 @@ const GenericForm = ({ title, description, backLink, service, fields }) => {
                     </div>
                     
                     <div className="d-flex justify-content-end gap-2 border-top pt-4 mt-2">
-                        <Link to={backLink} className="btn btn-secondary px-4">Cancel</Link>
+                        <Link to={backLink} className="btn btn-secondary px-4">Cancelar</Link>
                         <button type="submit" className="btn btn-primary px-4 fw-bold" disabled={loading}>
-                            {loading ? 'Saving...' : 'Save Record'}
+                            {loading ? 'Guardando...' : 'Guardar Registro'}
                         </button>
                     </div>
                 </form>

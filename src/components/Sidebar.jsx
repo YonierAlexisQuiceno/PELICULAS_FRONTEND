@@ -71,8 +71,8 @@ const Sidebar = () => {
             <div className="mt-auto pt-3 border-top px-3 d-flex align-items-center">
                 <div className="rounded-circle bg-secondary me-3" style={{ width: '35px', height: '35px', backgroundImage: 'url("https://i.pravatar.cc/150?u=a042581f4e29026704d")', backgroundSize: 'cover' }}></div>
                 <div>
-                    <h6 className="mb-0 fw-bold" style={{ fontSize: '0.9rem' }}>Alma Mater</h6>
-                    <small style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>Administrator</small>
+                    <h6 className="mb-0 fw-bold" style={{ fontSize: '0.9rem' }}>Administrador</h6>
+                    <small style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>Portal de Gestión</small>
                 </div>
             </div>
 

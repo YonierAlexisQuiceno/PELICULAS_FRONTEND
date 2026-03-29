@@ -11,8 +11,8 @@ export const TipoList = () => {
 
     return (
         <GenericList 
-            title="Manage Tipos de Media"
-            description="Add, edit, or remove media types (e.g. Movie, Series)."
+            title="Gestionar Tipos de Media"
+            description="Agrega, edita o elimina tipos de media (ej. Película, Serie)."
             addLink="/admin/tipos/new"
             editLinkPrefix="/admin/tipos/edit"
             service={tipoService}
@@ -30,7 +30,7 @@ export const TipoForm = () => {
     return (
         <GenericForm 
             title="Tipo"
-            description="Enter the details of the media type."
+            description="Ingresa los datos del tipo de media."
             backLink="/admin/tipos"
             service={tipoService}
             fields={fields}

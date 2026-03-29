@@ -53,7 +53,7 @@ const MediaForm = () => {
             setTipos(tip);
         } catch (error) {
             console.error("Error loading dependencies", error);
-            Swal.fire('Error', 'Could not load dependencies from server. Make sure API is running.', 'error');
+            Swal.fire('Error', 'No se pudieron cargar las dependencias del servidor. Asegúrate de que la API esté activa.', 'error');
         }
     };
 
@@ -71,7 +71,7 @@ const MediaForm = () => {
             };
             setFormData(processedData);
         } catch (error) {
-            Swal.fire('Error!', 'Could not fetch the media record', 'error');
+            Swal.fire('Error!', 'No se pudo obtener el registro de media.', 'error');
             history.push('/admin/medias');
         } finally {
             setLoading(false);
@@ -89,14 +89,14 @@ const MediaForm = () => {
             setLoading(true);
             if (isEditMode) {
                 await mediaService.update(id, formData);
-                Swal.fire('Updated!', 'Media has been updated.', 'success');
+                Swal.fire('Actualizado!', 'La media ha sido actualizada.', 'success');
             } else {
                 await mediaService.create(formData);
-                Swal.fire('Created!', 'New media added.', 'success');
+                Swal.fire('Creado!', 'Nueva media agregada.', 'success');
             }
             history.push('/admin/medias');
         } catch (error) {
-            Swal.fire('Error!', error.response?.data?.message || 'Could not save data.', 'error');
+            Swal.fire('Error!', error.response?.data?.message || 'No se pudieron guardar los datos.', 'error');
         } finally {
             setLoading(false);
         }
@@ -110,13 +110,13 @@ const MediaForm = () => {
         <div className="container-fluid p-0">
             <div className="mb-4">
                 <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb mb-1" style={{ fontSize: '0.85rem' }}>
-                        <li className="breadcrumb-item"><Link to="/admin/medias" className="text-secondary text-decoration-none">Media Library</Link></li>
-                        <li className="breadcrumb-item active text-muted" aria-current="page">{isEditMode ? 'Edit' : 'Add New'}</li>
+                    <ol className="breadcrumb mb-1" style={{ fontSize: '0.82rem' }}>
+                        <li className="breadcrumb-item"><Link to="/admin/medias" style={{ color: '#9ca3af', textDecoration: 'none' }}>Biblioteca de Media</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page" style={{ color: '#6b7280' }}>{isEditMode ? 'Editar' : 'Nuevo'}</li>
                     </ol>
                 </nav>
-                <h2 className="fw-bold mb-1">{isEditMode ? 'Edit Movie/Series' : 'Add New Movie/Series'}</h2>
-                <p className="text-muted">Create a new media entry for the streaming library.</p>
+                <h2 style={{ color: '#fff', fontWeight: 700, marginBottom: '4px' }}>{isEditMode ? 'Editar Película/Serie' : 'Nueva Película/Serie'}</h2>
+                <p style={{ color: '#9ca3af', margin: 0, fontSize: '0.9rem' }}>Crea una nueva entrada de media para la biblioteca de streaming.</p>
             </div>
 
             <div className="card border-0 p-4 pb-4 shadow-sm">
@@ -157,7 +157,7 @@ const MediaForm = () => {
                         <div className="col-md-3">
                             <label className="form-label text-white fw-bold" style={{ fontSize: '0.9rem' }}>Género <span className="text-danger">*</span></label>
                             <select className="form-select" name="genero" value={formData.genero} onChange={handleChange} style={{ backgroundColor: 'rgba(255,255,255,0.03)' }} required>
-                                <option value="">Select Genre</option>
+                                <option value="">Seleccionar Género</option>
                                 {generos.map(g => (
                                     <option key={g._id} value={g.nombre}>{g.nombre}</option>
                                 ))}
@@ -166,7 +166,7 @@ const MediaForm = () => {
                         <div className="col-md-3">
                             <label className="form-label text-white fw-bold" style={{ fontSize: '0.9rem' }}>Director <span className="text-danger">*</span></label>
                             <select className="form-select" name="director" value={formData.director} onChange={handleChange} style={{ backgroundColor: 'rgba(255,255,255,0.03)' }} required>
-                                <option value="">Select Director</option>
+                                <option value="">Seleccionar Director</option>
                                 {directores.map(d => (
                                     <option key={d._id} value={d.nombres}>{d.nombres}</option>
                                 ))}
@@ -175,7 +175,7 @@ const MediaForm = () => {
                         <div className="col-md-3">
                             <label className="form-label text-white fw-bold" style={{ fontSize: '0.9rem' }}>Productora <span className="text-danger">*</span></label>
                             <select className="form-select" name="productora" value={formData.productora} onChange={handleChange} style={{ backgroundColor: 'rgba(255,255,255,0.03)' }} required>
-                                <option value="">Select Producer</option>
+                                <option value="">Seleccionar Productora</option>
                                 {productoras.map(p => (
                                     <option key={p._id} value={p.nombre}>{p.nombre}</option>
                                 ))}
@@ -184,7 +184,7 @@ const MediaForm = () => {
                         <div className="col-md-3">
                             <label className="form-label text-white fw-bold" style={{ fontSize: '0.9rem' }}>Tipo <span className="text-danger">*</span></label>
                             <select className="form-select" name="tipo" value={formData.tipo} onChange={handleChange} style={{ backgroundColor: 'rgba(255,255,255,0.03)' }} required>
-                                <option value="">Select Type</option>
+                                <option value="">Seleccionar Tipo</option>
                                 {tipos.map(t => (
                                     <option key={t._id} value={t.nombre}>{t.nombre}</option>
                                 ))}
@@ -193,9 +193,9 @@ const MediaForm = () => {
                     </div>
 
                     <div className="d-flex justify-content-end gap-2 border-top pt-4">
-                        <Link to="/admin/medias" className="btn btn-secondary px-4">Cancel</Link>
+                        <Link to="/admin/medias" className="btn btn-secondary px-4">Cancelar</Link>
                         <button type="submit" className="btn btn-primary px-4 fw-bold" disabled={loading}>
-                            {loading ? 'Saving...' : 'Save Media'}
+                            {loading ? 'Guardando...' : 'Guardar Media'}
                         </button>
                     </div>
                 </form>

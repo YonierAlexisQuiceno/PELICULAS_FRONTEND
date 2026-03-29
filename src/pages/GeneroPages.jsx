@@ -20,8 +20,8 @@ export const GeneroList = () => {
 
     return (
         <GenericList 
-            title="Manage Géneros"
-            description="Add, edit, or remove movie categories from your database."
+            title="Gestionar Géneros"
+            description="Agrega, edita o elimina categorías de películas de la base de datos."
             addLink="/admin/generos/new"
             editLinkPrefix="/admin/generos/edit"
             service={generoService}
@@ -50,7 +50,7 @@ export const GeneroForm = () => {
     return (
         <GenericForm 
             title="Género"
-            description="Fill out the details to create or update a category."
+            description="Completa los detalles para crear o actualizar una categoría."
             backLink="/admin/generos"
             service={generoService}
             fields={fields}

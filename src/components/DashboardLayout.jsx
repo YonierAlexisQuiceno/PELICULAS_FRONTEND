@@ -15,7 +15,7 @@ const DashboardLayout = ({ children }) => {
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Search movies, actors, or directors..."
+                            placeholder="Buscar películas, actores o directores..."
                             style={{ paddingLeft: '40px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '8px' }}
                         />
                     </div>
@@ -28,8 +28,8 @@ const DashboardLayout = ({ children }) => {
                         </div>
                         <div className="d-flex align-items-center gap-3">
                             <div className="text-end d-none d-md-block">
-                                <span className="d-block fw-bold text-white fs-6 lh-1">Alex Rivera</span>
-                                <span className="text-uppercase" style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', letterSpacing: '0.5px' }}>Senior Admin</span>
+                                <span className="d-block fw-bold text-white fs-6 lh-1">Administrador</span>
+                                <span className="text-uppercase" style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', letterSpacing: '0.5px' }}>Portal de Gestión</span>
                             </div>
                             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Profile" className="rounded-circle" style={{ width: '36px', height: '36px', border: '2px solid var(--border-color)' }} />
                         </div>
