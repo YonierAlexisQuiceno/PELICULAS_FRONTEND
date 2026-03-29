@@ -62,7 +62,7 @@ const Sidebar = () => {
                     <small className="px-3 fw-bold text-uppercase" style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', letterSpacing: '1px' }}>System</small>
                 </li>
                 <li className="nav-item mb-1">
-                    <Link to="#" className={`nav-link sidebar-link`}>
+                    <Link to="/admin/settings" className={`nav-link sidebar-link ${isActive('/admin/settings')}`}>
                         <FaCog className="me-3" /> Settings
                     </Link>
                 </li>

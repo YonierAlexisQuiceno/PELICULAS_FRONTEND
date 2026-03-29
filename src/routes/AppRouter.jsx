@@ -10,6 +10,8 @@ import { ProductoraList, ProductoraForm } from '../pages/ProductoraPages';
 import { TipoList, TipoForm } from '../pages/TipoPages';
 import ContentList from '../pages/ContentList'; // Media List
 import MediaForm from '../pages/MediaForm';
+import MediaDetailView from '../pages/MediaDetailView';
+import Settings from '../pages/Settings';
 
 const AppRouter = () => {
     return (
@@ -44,6 +46,10 @@ const AppRouter = () => {
                             <Route exact path="/admin/medias" component={ContentList} />
                             <Route exact path="/admin/medias/new" component={MediaForm} />
                             <Route exact path="/admin/medias/edit/:id" component={MediaForm} />
+                            <Route exact path="/admin/medias/view/:id" component={MediaDetailView} />
+
+                            {/* Settings */}
+                            <Route exact path="/admin/settings" component={Settings} />
 
                             <Redirect to="/admin/dashboard" />
                         </Switch>

@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { FaEdit, FaTrash, FaPlus, FaFileImage } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaFileImage, FaEye } from 'react-icons/fa';
 import mediaService from '../services/mediaService';
 
 const ContentList = () => {
     const [mediaItems, setMediaItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+
+    // Extract search query if present
+    const searchParams = new URLSearchParams(location.search);
+    const searchQuery = searchParams.get('search') || '';
 
     useEffect(() => {
         fetchMedia();
@@ -24,6 +29,18 @@ const ContentList = () => {
             setLoading(false);
         }
     };
+
+    // Filter media items based on search query
+    const filteredItems = useMemo(() => {
+        if (!searchQuery) return mediaItems;
+        const lowerQuery = searchQuery.toLowerCase();
+        return mediaItems.filter(item => 
+            item.titulo?.toLowerCase().includes(lowerQuery) ||
+            item.serial?.toLowerCase().includes(lowerQuery) ||
+            item.director?.nombres?.toLowerCase().includes(lowerQuery) ||
+            item.productora?.nombre?.toLowerCase().includes(lowerQuery)
+        );
+    }, [mediaItems, searchQuery]);
 
     const handleDelete = async (id) => {
         try {
@@ -55,6 +72,11 @@ const ContentList = () => {
                 <div>
                     <h2 style={{ color: '#fff', fontWeight: 700, marginBottom: '4px' }}>Gestionar Media</h2>
                     <p style={{ color: '#9ca3af', margin: 0, fontSize: '0.9rem' }}>Listado de todas las películas y series en la plataforma.</p>
+                    {searchQuery && (
+                        <span className="badge bg-primary bg-opacity-10 text-primary border border-primary mt-2">
+                           Búsqueda: "{searchQuery}"
+                        </span>
+                    )}
                 </div>
                 <Link to="/admin/medias/new" className="btn btn-primary d-flex align-items-center fw-bold px-4 py-2">
                     <FaPlus className="me-2" /> Nueva Media
@@ -84,8 +106,8 @@ const ContentList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {mediaItems.length > 0 ? (
-                                    mediaItems.map((item) => (
+                                {filteredItems.length > 0 ? (
+                                    filteredItems.map((item) => (
                                         <tr key={item._id} style={{ height: '70px' }}>
                                             <td className="ps-4">
                                                 {item.imagenPortada ? (
@@ -108,7 +130,10 @@ const ContentList = () => {
                                                 <div className="text-muted" style={{ fontSize: '0.75rem' }}>{item.productora?.nombre || item.productora}</div>
                                             </td>
                                             <td className="text-end pe-4">
-                                                <Link to={`/admin/medias/edit/${item._id}`} className="btn btn-sm btn-link text-primary me-2 shadow-none" title="Edit">
+                                                <Link to={`/admin/medias/view/${item._id}`} className="btn btn-sm btn-link text-info me-2 shadow-none" title="Ver Detalles">
+                                                    <FaEye size={16} />
+                                                </Link>
+                                                <Link to={`/admin/medias/edit/${item._id}`} className="btn btn-sm btn-link text-primary me-2 shadow-none" title="Editar">
                                                     <FaEdit size={16} />
                                                 </Link>
                                                 <button onClick={() => handleDelete(item._id)} className="btn btn-sm btn-link text-danger shadow-none" title="Delete">
@@ -129,7 +154,7 @@ const ContentList = () => {
                     </div>
                 )}
                 <div style={{ borderTop: '1px solid #2e364f', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: '#9ca3af', fontSize: '0.82rem' }}>Mostrando {mediaItems.length} resultados</span>
+                    <span style={{ color: '#9ca3af', fontSize: '0.82rem' }}>Mostrando {filteredItems.length} {filteredItems.length === 1 ? 'resultado' : 'resultados'}</span>
                 </div>
             </div>
         </div>
