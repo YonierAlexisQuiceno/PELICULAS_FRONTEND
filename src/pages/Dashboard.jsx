@@ -30,11 +30,11 @@ const Dashboard = () => {
                     generoService.getActive(),
                 ]);
                 setStats({
-                    medias: medias.length,
-                    directores: directores.length,
-                    generosActivos: generosActivos.length,
+                    medias: medias?.length || 0,
+                    directores: directores?.length || 0,
+                    generosActivos: generosActivos?.length || 0,
                 });
-                setRecentMedia([...medias].reverse().slice(0, 4));
+                setRecentMedia(Array.isArray(medias) ? [...medias].reverse().slice(0, 4) : []);
             } catch (error) {
                 console.error('Error cargando estadísticas del dashboard', error);
             } finally {
