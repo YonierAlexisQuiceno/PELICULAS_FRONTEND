@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaLayerGroup, FaPlayCircle, FaFilm, FaCog, FaUserTie, FaBuilding, FaTags } from 'react-icons/fa';
+import { FaLayerGroup, FaPlayCircle, FaFilm, FaCog, FaUserTie, FaBuilding, FaTags, FaTimes } from 'react-icons/fa';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, closeSidebar }) => {
     const location = useLocation();
 
     const isActive = (path) => {
@@ -10,15 +10,22 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="sidebar-container border-end p-3 vh-100 d-flex flex-column" style={{ width: '250px', position: 'fixed', top: 0, left: 0, backgroundColor: 'var(--panel-bg)', overflowY: 'auto' }}>
-            <div className="d-flex align-items-center mb-5 px-3 pt-2">
-                <div className="bg-primary text-white rounded p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
-                    <FaFilm size={18} />
+        <div className={`sidebar-container border-end p-3 vh-100 d-flex flex-column ${isOpen ? 'open' : ''}`} style={{ width: '250px', position: 'fixed', top: 0, left: 0, backgroundColor: 'var(--panel-bg)', overflowY: 'auto' }}>
+            <div className="d-flex align-items-center justify-content-between mb-5 px-3 pt-2">
+                <div className="d-flex align-items-center">
+                    <div className="bg-primary text-white rounded p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
+                        <FaFilm size={18} />
+                    </div>
+                    <div>
+                        <h5 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)', fontSize: '1.1rem' }}>StreamAdmin</h5>
+                        <small style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>Management Portal</small>
+                    </div>
                 </div>
-                <div>
-                    <h5 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)', fontSize: '1.1rem' }}>StreamAdmin</h5>
-                    <small style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>Management Portal</small>
-                </div>
+                <FaTimes 
+                    className="d-lg-none cursor-pointer text-white" 
+                    size={22} 
+                    onClick={closeSidebar}
+                />
             </div>
 
             <ul className="nav nav-pills flex-column mb-auto">

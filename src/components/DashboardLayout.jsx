@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import { FaSearch, FaBell, FaUserCircle, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaSearch, FaBell, FaUserCircle, FaCog, FaSignOutAlt, FaBars } from 'react-icons/fa';
 
 const DashboardLayout = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const history = useHistory();
 
     const handleSearch = (e) => {
@@ -20,24 +21,41 @@ const DashboardLayout = ({ children }) => {
     };
     return (
         <div className="d-flex min-vh-100" style={{ backgroundColor: 'var(--app-bg)' }}>
-            <Sidebar />
-            <div className="flex-grow-1" style={{ marginLeft: '250px', display: 'flex', flexDirection: 'column' }}>
+            <div className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`} onClick={() => setIsSidebarOpen(false)}></div>
+            <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
+            <div className="main-content-wrapper flex-grow-1 w-100">
 
                 {/* Topbar */}
-                <div className="border-bottom px-4 py-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'var(--app-bg)', height: '70px' }}>
-                    <div className="position-relative" style={{ width: '400px' }}>
-                        <FaSearch className="position-absolute" style={{ left: '15px', top: '12px', color: 'var(--text-secondary)' }} />
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Buscar películas, actores o directores... (Presiona Enter)"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onKeyDown={handleSearch}
-                            style={{ paddingLeft: '40px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)' }}
+                <div className="border-bottom px-3 px-md-4 py-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'var(--app-bg)', height: '70px', position: 'sticky', top: 0, zIndex: 1030 }}>
+                    <div className="d-flex align-items-center flex-grow-1 me-2 me-md-4">
+                        <FaBars 
+                            className="d-lg-none me-3 cursor-pointer" 
+                            size={22} 
+                            style={{ color: 'var(--text-primary)' }} 
+                            onClick={() => setIsSidebarOpen(true)}
                         />
+                        <div className="position-relative w-100" style={{ maxWidth: '400px' }}>
+                            <FaSearch className="position-absolute d-none d-sm-block" style={{ left: '15px', top: '12px', color: 'var(--text-secondary)' }} />
+                            <FaSearch className="position-absolute d-sm-none" style={{ left: '12px', top: '10px', color: 'var(--text-secondary)' }} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Buscar películas o series..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyDown={handleSearch}
+                                style={{ 
+                                    paddingLeft: '35px', 
+                                    backgroundColor: 'rgba(255,255,255,0.03)', 
+                                    border: '1px solid var(--border-color)', 
+                                    borderRadius: '8px', 
+                                    color: 'var(--text-primary)',
+                                    fontSize: '0.9rem'
+                                }}
+                            />
+                        </div>
                     </div>
-                    <div className="d-flex align-items-center gap-4">
+                    <div className="d-flex align-items-center gap-3 gap-md-4">
                         <div className="position-relative cursor-pointer" onClick={() => setShowNotifications(!showNotifications)}>
                             <FaBell size={18} style={{ color: 'var(--text-secondary)', cursor: 'pointer' }} />
                             <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
